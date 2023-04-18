@@ -1,0 +1,5 @@
+FROM nginx:latest
+
+RUN rm -rf /usr/local/nginx/conf/
+
+COPY ./nginx/default.conf /etc/nginx/conf.d/

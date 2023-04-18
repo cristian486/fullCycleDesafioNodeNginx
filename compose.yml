@@ -1,0 +1,54 @@
+version: '3'
+
+services:
+  database:
+    image: mysql:8.0.18
+    container_name: banco
+    environment:
+      - MYSQL_DATABASE=node
+      - MYSQL_ROOT_PASSWORD=Doumaooito
+    restart: always
+    networks:
+      - desafio_nginx_node
+    healthcheck:
+      test: mysqladmin ping -h 127.0.0.1 -u $$MYSQL_USER --password=$$MYSQL_PASSWORD
+      timeout: 20s
+      retries: 2
+  
+  nodejs:
+    image: cristian486/back_node_desafio
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: backend
+    depends_on:
+      database:
+        condition: service_healthy
+    networks:
+      - desafio_nginx_node
+    restart: always
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3000/healthcheck"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+  
+  nginx:
+    image: cristian486/nginx_desafio
+    container_name: nginx
+    build:
+      context: .
+      dockerfile: Dockerfile.nginx
+    depends_on:
+      nodejs:
+        condition: service_healthy
+    restart: always
+    ports:
+      - 80:80
+    networks:
+      - desafio_nginx_node
+
+
+networks:
+  desafio_nginx_node:
+    driver: bridge
