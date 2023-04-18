@@ -18,7 +18,7 @@ popularBanco();
 
 app.get('/', (req, res) => {
 
-    var resposta = '<h1>Full Cycle</h1>\n';
+    var resposta = '<h1>Full Cycle Rocks!!!</h1>\n';
     resposta += '<ul>';
 
     connection.query('SELECT * FROM people', (errors, records) => {
