@@ -4,7 +4,7 @@ Desenvolvida a aplicação em Node com base no que foi demonstrado ao longo do t
 
 Modificadas as configurações do Nginx para que ele se comunique com o servidor Node e retorne então o resultado para o cliente.
 
-Para a execução basta baixar o arquivo *compose.yml* e executar ele.
+Para a execução basta baixar o arquivo *compose.yml*, executar ele e então abrir o navegador na porta 80.
 
 Link para as duas imagens criadas:
 
